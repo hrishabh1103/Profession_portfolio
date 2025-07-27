@@ -4,7 +4,10 @@
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,           // ✅ Better interoperability with CommonJS modules
+    "resolveJsonModule": true,         // ✅ Allows importing JSON files
+    "strict": true                     // ✅ Enables strict type checking
   },
   "include": ["vite.config.ts"]
 }
