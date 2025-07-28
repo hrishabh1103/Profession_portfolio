@@ -26,28 +26,7 @@ const EarthCanvas = () => {
   }, []);
 
   if (isMobile) {
-    return (
-      <div
-        style={{
-          width: "100%",
-          height: "350px",
-          backgroundColor: "black",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src="/earth_mobile.png"
-          alt="Earth"
-          style={{
-            maxWidth: "90%",
-            maxHeight: "100%",
-            objectFit: "contain",
-          }}
-        />
-      </div>
-    );
+    return null;
   }
 
   return (
