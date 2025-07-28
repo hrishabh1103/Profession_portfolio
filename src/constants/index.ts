@@ -189,7 +189,7 @@ const testimonials: TTestimonial[] = [
     name: "Raunak Sharma",
     designation: "CFO",
     company: "SavingsKaro.in",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQG95_ckbDnDMA/profile-displayphoto-scale_400_400/B56ZhNW.oKHkAk-/0/1753644528150?e=1756339200&v=beta&t=yJcHR2DNt2HqQVMFi_5IA7jP8H2H8y6g6qHa44Xu608",
   },
   {
     testimonial:
