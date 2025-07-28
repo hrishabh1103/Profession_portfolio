@@ -1,3 +1,4 @@
+import earthMobile from "../../assets/earth_mobile.png";
 import { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
@@ -28,7 +29,7 @@ const EarthCanvas = () => {
   if (isMobile) {
     return (
       <div className="w-full h-[350px] flex items-center justify-center bg-black">
-        <img src="/planet/earth_mobile.png" alt="Earth" className="h-full object-contain" />
+        <img src={earthMobile} alt="Earth" className="h-full object-contain" />
       </div>
     );
   }
