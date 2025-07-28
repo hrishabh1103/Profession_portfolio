@@ -78,9 +78,9 @@ const Works = () => {
         </motion.p>
       </div>
 
-      <div className="mt-20 flex gap-4 overflow-x-auto px-2 sm:flex-wrap sm:justify-center">
+      <div className="mt-20 flex gap-4 overflow-x-auto px-2 sm:flex-wrap sm:justify-center snap-x snap-mandatory scroll-smooth">
         {projects.map((project, index) => (
-          <div className="flex-shrink-0 w-[85vw] sm:w-[300px]" key={`project-${index}`}>
+          <div className="flex-shrink-0 w-[85vw] sm:w-[300px] snap-center" key={`project-${index}`}>
             <ProjectCard index={index} {...project} />
           </div>
         ))}
