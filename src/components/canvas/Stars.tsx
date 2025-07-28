@@ -1,4 +1,4 @@
-import { useState, useRef, Suspense, } from "react";
+import { useState, useRef, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import { random } from "maath";
@@ -33,15 +33,40 @@ const Stars = (props: any) => {
 };
 
 const StarsCanvas = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-0 h-full w-full pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 1] }}>
-        <Suspense fallback={null}>
-          <Stars />
-        </Suspense>
-        <Preload all />
-      </Canvas>
-    </div>
+    <>
+      {isMobile ? (
+        <div className="absolute inset-0 z-[-1] h-auto w-full bg-black">
+          <p className="text-white text-center py-10">Stars background not shown on mobile</p>
+        </div>
+      ) : (
+        <div className="absolute inset-0 z-[-1] h-auto w-full">
+          <Canvas camera={{ position: [0, 0, 1] }}>
+            <Suspense fallback={null}>
+              <Stars />
+            </Suspense>
+            <Preload all />
+          </Canvas>
+        </div>
+      )}
+    </>
   );
 }
 
