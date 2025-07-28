@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import { styles } from "../../constants/styles";
@@ -5,6 +6,22 @@ import { ComputersCanvas } from "../canvas";
 import { config } from "../../constants/config";
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
   return (
     <section className={`relative mx-auto h-screen w-full`}>
       <div
@@ -26,7 +43,17 @@ const Hero = () => {
         </div>
       </div>
 
-      <ComputersCanvas />
+      {isMobile ? (
+        <div className="h-[300px] w-full bg-black flex items-center justify-center">
+          <img
+            src="/fallback-hero.png"
+            alt="Hero"
+            className="w-3/4 h-auto object-contain"
+          />
+        </div>
+      ) : (
+        <ComputersCanvas />
+      )}
 
       <div className="xs:bottom-10 absolute bottom-32 flex w-full items-center justify-center">
         <a href="#about">

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -22,6 +22,22 @@ const Contact = () => {
   const formRef = useRef<React.LegacyRef<HTMLFormElement> | undefined>();
   const [form, setForm] = useState(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined
@@ -109,12 +125,18 @@ const Contact = () => {
         </form>
       </motion.div>
 
-      <motion.div
-        variants={slideIn("right", "tween", 0.2, 1)}
-        className="h-[350px] md:h-[550px] xl:h-auto xl:flex-1"
-      >
-        <EarthCanvas />
-      </motion.div>
+      {isMobile ? (
+        <div className="h-[300px] w-full bg-black flex items-center justify-center">
+          <img src="/fallback-earth.png" alt="Earth" className="w-3/4 h-auto object-contain" />
+        </div>
+      ) : (
+        <motion.div
+          variants={slideIn("right", "tween", 0.2, 1)}
+          className="h-[350px] md:h-[550px] xl:h-auto xl:flex-1"
+        >
+          <EarthCanvas />
+        </motion.div>
+      )}
     </div>
   );
 };
