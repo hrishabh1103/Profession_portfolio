@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
@@ -13,32 +14,60 @@ const Earth = () => {
 };
 
 const EarthCanvas = () => {
-  return (
-    <Canvas
-      shadows
-      frameloop="demand"
-      dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true }}
-      camera={{
-        fov: 45,
-        near: 0.1,
-        far: 200,
-        position: [-4, 3, 6],
-      }}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          autoRotate
-          enablePan={false}
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
-        <Earth />
+  const [isMobile, setIsMobile] = useState(false);
 
-        <Preload all />
-      </Suspense>
-    </Canvas>
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
+  return (
+    <>
+      {isMobile ? (
+        <div className="flex items-center justify-center h-[300px] bg-black">
+          <img
+            src="/fallback-earth.png"
+            alt="Earth"
+            className="w-3/4 h-auto object-contain"
+          />
+        </div>
+      ) : (
+        <Canvas
+          shadows
+          frameloop="demand"
+          dpr={[1, 2]}
+          gl={{ preserveDrawingBuffer: true }}
+          camera={{
+            fov: 45,
+            near: 0.1,
+            far: 200,
+            position: [-4, 3, 6],
+          }}
+        >
+          <Suspense fallback={<CanvasLoader />}>
+            <OrbitControls
+              autoRotate
+              enablePan={false}
+              enableZoom={false}
+              maxPolarAngle={Math.PI / 2}
+              minPolarAngle={Math.PI / 2}
+            />
+            <Earth />
+            <Preload all />
+          </Suspense>
+        </Canvas>
+      )}
+    </>
   );
 };
 

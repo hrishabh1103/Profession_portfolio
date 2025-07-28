@@ -56,7 +56,9 @@ const ComputersCanvas = () => {
   return (
     <>
       {isMobile ? (
-        <></>
+        <div className="flex items-center justify-center h-[300px] bg-black">
+          <img src="/fallback-hero.png" alt="Hero" className="w-3/4 h-auto object-contain" />
+        </div>
       ) : (
         <Canvas
           frameloop="demand"

@@ -96,20 +96,20 @@ const Navbar = () => {
           <img
             src={toggle ? close : menu}
             alt="menu"
-            className="h-[28px] w-[28px] object-contain"
+            className="h-[36px] w-[36px] object-contain p-1"
             onClick={() => setToggle(!toggle)}
           />
 
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } black-gradient absolute right-0 top-20 z-10 mx-4 my-2 min-w-[140px] rounded-xl p-6`}
+            } black-gradient absolute right-4 top-20 z-10 w-[80vw] max-w-[300px] max-h-[80vh] overflow-y-auto rounded-xl p-4 sm:p-6`}
           >
             <ul className="flex flex-1 list-none flex-col items-start justify-end gap-4">
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}
-                  className={`font-poppins cursor-pointer text-[16px] font-medium ${
+                  className={`font-poppins cursor-pointer text-sm sm:text-base font-medium ${
                     active === nav.id ? "text-white" : "text-secondary"
                   }`}
                   onClick={() => {
@@ -119,7 +119,7 @@ const Navbar = () => {
                   <a href={`#${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
-              <li className="font-poppins cursor-pointer text-[16px] font-medium text-secondary hover:text-white">
+              <li className="font-poppins cursor-pointer text-sm sm:text-base font-medium text-secondary hover:text-white">
                 <a
                   href="https://drive.google.com/file/d/156wQNz1OW0H6jJqIGDZI-yif2UjykDyY/view?usp=sharing"
                   target="_blank"

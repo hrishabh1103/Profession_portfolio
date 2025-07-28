@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   Decal,
@@ -39,19 +40,44 @@ const Ball = (props: any) => {
 };
 
 const BallCanvas: React.FC<{ icon: string }> = ({ icon }) => {
-  return (
-    <Canvas
-      frameloop="demand"
-      dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true }}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enablePan={false} enableZoom={false} />
-        <Ball imgUrl={icon} />
-      </Suspense>
+  const [isMobile, setIsMobile] = useState(false);
 
-      <Preload all />
-    </Canvas>
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mediaQuery.matches);
+
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
+  return (
+    <>
+      {isMobile ? (
+        <div className="flex items-center justify-center h-[200px] bg-black">
+          <img src={icon} alt="icon" className="w-24 h-24 object-contain" />
+        </div>
+      ) : (
+        <Canvas
+          frameloop="demand"
+          dpr={[1, 2]}
+          gl={{ preserveDrawingBuffer: true }}
+        >
+          <Suspense fallback={<CanvasLoader />}>
+            <OrbitControls enablePan={false} enableZoom={false} />
+            <Ball imgUrl={icon} />
+          </Suspense>
+
+          <Preload all />
+        </Canvas>
+      )}
+    </>
   );
 };
 
