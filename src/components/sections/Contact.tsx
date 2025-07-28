@@ -127,7 +127,11 @@ const Contact = () => {
 
       {isMobile ? (
         <div className="h-[300px] w-full bg-black flex items-center justify-center">
-          <img src="/fallback-earth.png" alt="Earth" className="w-3/4 h-auto object-contain" />
+          <img
+            src="/earth_mobile.png"
+            alt="Earth"
+            className="w-3/4 h-auto object-contain"
+          />
         </div>
       ) : (
         <motion.div
