@@ -80,7 +80,9 @@ const Works = () => {
 
       <div className="mt-20 flex justify-center flex-wrap gap-7">
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
+          <div className="w-full xs:w-[90%] sm:w-[300px] flex justify-center" key={`project-${index}`}>
+            <ProjectCard index={index} {...project} />
+          </div>
         ))}
       </div>
     </section>
