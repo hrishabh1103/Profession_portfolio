@@ -145,7 +145,7 @@ const experiences: TExperience[] = [
     companyName: "Next24 Technologies",
     icon: tesla,
     iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
+    date: "July 2024 - Sep 2024",
     points: [
       "Developed ML models for e-commerce recommendations and house price prediction.",
       "Optimized data pipelines, improving model accuracy and efficiency.",
